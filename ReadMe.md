@@ -1,0 +1,50 @@
+# Welcome to Contractor
+
+### What is Contractor?
+Contractor is an e-commerce website where users can sell their projects (iOS, Android, Website) following the CRUD principle which allow users to create, read, update, delete users and projects. This website is written in Python, utilizes Flask and Jinja2 for templating, MongoDB as its database, Heroku as the web server, and Bootstrap for basic styling.
+
+
+## To Run Locally
+- __1) Make sure you have Python installed__ - to check if you python, type ```python3``` to the terminal and should see the following
+```
+$ python3
+Python 3.5.2 (default, Nov 17 2016, 17:05:23)
+[GCC 5.4.0 20160609] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>> _ 
+```
+- __Create a virtual environment__
+```
+$ cd playlister
+$ python3 -m venv env
+```
+- __Activate the newly created virtual environment to install Python packages__
+```
+$ source env/bin/activate
+```
+- __Make sure Flask is installed in the virtual environment to get started with the project__
+```
+(env) $ pip3 install flask
+```
+- __To install packages from a requirements.txt file:__ 
+```
+$ pip3 install -r requirements.txt
+```
+- __To run the project__ 
+```
+(env) $ export FLASK_ENV=development; flask run
+```
+===============================
+
+
+## Relevant Links
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/) to build the web
+- [Jinja2](https://jinja.palletsprojects.com/en/2.10.x/) for templating
+- [MongoDB](https://www.mongodb.com)
+- [PyMongo](https://api.mongodb.com/python/current/)
+- [Bootstrap Documentation](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
+- [Heroku](https://heroku.com)
+
+- [Make School Courses](https://www.makeschool.com/academy)
+- [Playlister Tutorial](https://www.makeschool.com/academy/track/playlistr-video-playlists-with-flask-and-mongodb-1c)
+- [My Playlister Repo](https://github.com/SamuelFolledo/Playlister)
