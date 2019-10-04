@@ -44,7 +44,7 @@ $ pip3 install -r requirements.txt
 - [PyMongo](https://api.mongodb.com/python/current/)
 - [Bootstrap Documentation](https://getbootstrap.com/docs/4.1/getting-started/introduction/)
 - [Heroku](https://heroku.com)
-
 - [Make School Courses](https://www.makeschool.com/academy)
 - [Playlister Tutorial](https://www.makeschool.com/academy/track/playlistr-video-playlists-with-flask-and-mongodb-1c)
 - [My Playlister Repo](https://github.com/SamuelFolledo/Playlister)
+- [BEW1.1 Contractor Project Instructions](https://docs.google.com/document/d/1C8eOyLBeGMKJ2y50QwLU5tWjNb2JVcpAE4khUBIfm0U/edit#)
