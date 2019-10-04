@@ -1,8 +1,8 @@
-<!-- templates/users_new.html -->
+<!-- templates/users_edit.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method='POST' action='/users'>
+    <form method='POST' action='/users/{{user._id}}'>
         {% include 'partials/users_form.html' %}
     </form>
 {% endblock %}
