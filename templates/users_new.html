@@ -1,0 +1,24 @@
+<!-- templates/users_new.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<form method='POST' action='/users'>
+    <fieldset>
+    <legend>New User</legend>
+    <!-- TITLE -->
+    <p>
+        <label for='title'>User</label><br>
+        <input type='text' name='user_name' />
+    </p>
+    <p>
+        <label for='description'>Description</label><br>
+        <input type='text' name='user_description' />
+    </p>
+    </fieldset>
+
+    <!-- BUTTON -->
+    <p>
+        <button type='submit'>Save User</button>
+    </p>
+</form>
+{% endblock %}
