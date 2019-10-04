@@ -5,17 +5,9 @@ Contractor is an e-commerce website where users can sell their projects (iOS, An
 
 
 ## To Run Locally
-- __1) Make sure you have Python installed__ - to check if you python, type ```python3``` to the terminal and should see the following
+- __With Python installed, create a virtual environment__
 ```
-$ python3
-Python 3.5.2 (default, Nov 17 2016, 17:05:23)
-[GCC 5.4.0 20160609] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->> _ 
-```
-- __Create a virtual environment__
-```
-$ cd playlister
+$ cd contractor
 $ python3 -m venv env
 ```
 - __Activate the newly created virtual environment to install Python packages__
