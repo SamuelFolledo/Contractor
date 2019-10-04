@@ -19,7 +19,8 @@ def playlists_new():
 def playlists_submit():
     user = {
         'user_name': request.form.get('user_name'),
-        'user_description': request.form.get('user_description')
+        'user_description': request.form.get('user_description'),
+        'user_rating': request.form.get('user_rating')
     }
     users.insert_one(user)
     return redirect(url_for('users_index'))

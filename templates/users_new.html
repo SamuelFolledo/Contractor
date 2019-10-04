@@ -7,13 +7,25 @@
     <legend>New User</legend>
     <!-- TITLE -->
     <p>
-        <label for='title'>User</label><br>
+        <label for='title'>Full Name</label><br>
         <input type='text' name='user_name' />
     </p>
     <p>
         <label for='description'>Description</label><br>
-        <input type='text' name='user_description' />
+        <input type='text' name='user_description' rows = '10' />
     </p>
+
+    <div class='form-group'> <!--RATINGS-->
+        How would you rate this user?
+        <select id = 'user_rating' name='user_rating'> <!-- drop down defaulted at 5' -->
+            <option value=5 selected = 'selected'>5</option>
+            <option value=4>4</option>
+            <option value=3>3</option>
+            <option value=2>2</option>
+            <option value=1>1</option>
+        </select>
+    </div> 
+
     </fieldset>
 
     <!-- BUTTON -->
