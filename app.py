@@ -10,7 +10,7 @@ users = db.users
 
 @app.route('/')
 def users_index():
-    return render_template('users_index.html', msg='Flask is Cool!!')
+    return render_template('users_index.html', users = users.find())
 
 @app.route('/users/new') #NEW
 def userss_new():
