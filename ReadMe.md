@@ -1,8 +1,10 @@
-# Welcome to Contractor
+# Welcome to [Contractor](https://folledo-contractor.herokuapp.com)
 
 ### What is Contractor?
 Contractor is an e-commerce website where users can sell their projects (iOS, Android, Website) following the CRUD principle which allow users to create, read, update, delete users and projects. This website is written in Python, utilizes Flask and Jinja2 for templating, MongoDB as its database, Heroku as the web server, and Bootstrap for basic styling.
 
+## Link to [Contractor](https://folledo-contractor.herokuapp.com) while live
+https://folledo-contractor.herokuapp.com
 
 ## To Run Locally
 - __With Python installed, create a virtual environment__
