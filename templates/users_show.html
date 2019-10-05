@@ -12,4 +12,7 @@
     {% endfor %} -->
 
     <p><a href='/users/{{ user._id }}/edit'>Edit User</a></p>
+    <p><form method='POST' action='/users/{{ user._id }}/delete'>
+        <button type='submit'>Delete</button>
+    </form></p>
 {% endblock %}

@@ -49,6 +49,11 @@ def users_update(user_id):
         {'$set': updated_user})
     return redirect(url_for('users_show', user_id=user_id))
 
+@app.route('/users/<user_id>/delete', methods=['POST']) #DELETE
+def users_delete(user_id):
+    users.delete_one({'_id': ObjectId(user_id)})
+    return redirect(url_for('users_index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
