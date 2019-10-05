@@ -1,21 +1,25 @@
 <!-- templates/partials/users_form.html -->
 
-<fieldset>
-    <legend>{{ title }}</legend>
-    <!-- TITLE -->
-    <p>
-        <label for='user-name'>Title</label><br>
-        <input id='user-name' type='text' name='user_name' value='{{ user.user_name }}'/>
-    </p>
-    
-    <!-- DESCRIPTION -->
-    <p>
-      <label for='user-description'>Description</label><br>
-      <input id='user-description' type='text' name='user_description' value='{{ user.user_description }}' />
-    </p>
+<!-- templates/partials/users_form.html -->
 
+<fieldset> <!--The fieldset element represents a set of form controls optionally grouped under a common name-->
+    <legend>{{ title }}</legend> <!--The legend element represents a caption for the rest of the contents of the legend element's parent fieldset element, if any-->
+    <div class='form-group'> <!-- TITLE -->
+        <label for='user-name'>Title</label><br>
+        <input class='form-control' id='user-name' type='text' name='user_name' value='{{ user.user_name }}'/>
+    </div>
+    <div class='form-group'> <!-- DESCRIPTION -->
+        <label for='user-description'>Description</label><br>
+        <!-- <input type='text' name='description' /> -->
+        <input class='form-control' id='user-description' type='text' name='user_description' value='{{ user.user_description }}' />
+    </div>
+    <!-- <div class='form-group'> 
+        <label for='user-videos'>Videos</label><br>
+        <p class='text-muted'>Add videos in the form of 'https://youtube.com/embed/KEY'. Separate with a newline.</p>
+        <textarea class='form-control' id='user-videos' name='videos' rows='10'> {{ "\n".join(user.videos) }}</textarea>
+    </div> -->
     <div class='form-group'> <!--RATINGS-->
-        How would you rate this user?
+        How would you rate the user?
         <select id = 'user_rating' name='user_rating'> <!-- drop down defaulted at 5' -->
             <option value=5 selected = 'selected'>5</option>
             <option value=4>4</option>
@@ -24,17 +28,4 @@
             <option value=1>1</option>
         </select>
     </div> 
-    
-    <!-- VIDEO LINKS -->
-    <!-- <p>
-      <label for='user-videos'>Videos</label><br>
-      <p>Add videos in the form of 'https://youtube.com/embed/KEY'. Separate with a newline.</p>
-      <textarea id='user-videos' name='videos' rows='10'>{{ "\n".join(user.videos) }}</textarea>
-    </p> -->
-
-    </fieldset>
-    
-    <!-- BUTTON -->
-    <p>
-        <button type='submit'>Save User</button>
-    </p>
+</fieldset>

@@ -2,7 +2,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method='POST' action='/users/{{user._id}}'>
-        {% include 'partials/users_form.html' %}
-    </form>
+    <div class='row'>
+        <div class='col-sm-6 col-sm-offset-3'>
+            <form method='POST' action='/users/{{user._id}}'>
+                <input type='hidden' name='_method' value='PUT'/>
+                {% include 'partials/users_form.html' %}
+                
+                <div class='form-group'><!-- BUTTON -->
+                    <button class='btn btn-primary' type='submit'>Save User</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
