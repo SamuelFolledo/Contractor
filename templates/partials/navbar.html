@@ -1,14 +1,40 @@
 <!-- templates/partials/navbar.html -->
 
-<nav class='navbar navbar-default'>
-    <div class='container-fluid'>
+<nav class='navbar bg-dark navbar-dark navbar-expand-lg'> <!--expand at large shows the navBarResponsive item until it shrinks to devices screen-->
+    <div class='container'>
+
         <div class='navbar-header'>
             <a class='navbar-brand' href='/'>
                 Contractor
             </a>
         </div>
+        
+        <!--Hamburger button on nav-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle Navigation"> <!--navBarResponsive will be our hambuerger button, don't auto expand it-->
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--The nav itself-->
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"> <!--Default active with link nav item-->
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item active"> 
+                    <a class="nav-link" href="/projects/new">New Project</a>
+                </li>
+                <li class="nav-item active"> 
+                        <a class="nav-link" href="/users/new">New User</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- <div class='pull-right'>
+            <a href='/projects/new' class='btn btn-default navbar-btn'>New Project</a>
+        </div>
+
         <div class='pull-right'>
             <a href='/users/new' class='btn btn-default navbar-btn'>New User</a>
-        </div>
+        </div> -->
+
     </div>
 </nav>
