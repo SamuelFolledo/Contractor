@@ -1,8 +1,8 @@
 <!-- templates/partials/navbar.html -->
 
 <nav class='navbar bg-dark navbar-dark navbar-expand-lg'> <!--expand at large shows the navBarResponsive item until it shrinks to devices screen-->
-    <div class='container'>
-
+    <div class='container'><!--another options are: container-fluid-->
+    
         <div class='navbar-header'>
             <a class='navbar-brand' href='/'>
                 Contractor
@@ -16,14 +16,11 @@
         <!--The nav itself-->
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"> <!--Default active with link nav item-->
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item active"> 
+                <li id="link-new-project" class="nav-item"> 
                     <a class="nav-link" href="/projects/new">New Project</a>
                 </li>
-                <li class="nav-item active"> 
-                        <a class="nav-link" href="/users/new">New User</a>
+                <li id="link-new-user" class="nav-item"> 
+                    <a class="nav-link active" href="/users/new">New User</a>
                 </li>
             </ul>
         </div>
