@@ -26,7 +26,10 @@ def users_submit():
         'user_name': request.form.get('user_name'),
         'user_description': request.form.get('user_description'),
         'user_rating': int(request.form.get('user_rating')),
-        'user_image': request.form.get('user_image')
+        'user_image': request.form.get('user_image'),
+        'user_linkedin': request.form.get('user_linkedin'),
+        'user_facebook': request.form.get('user_facebook'),
+        'user_github': request.form.get('user_github')
     }
     user_id = users.insert_one(user).inserted_id
     return redirect(url_for('users_show', user_id = user_id))
@@ -48,7 +51,10 @@ def users_update(user_id):
         'user_description': request.form.get('user_description'),
         # 'videos': request.form.get('videos').split()
         'user_rating': int(request.form.get('user_rating')),
-        'user_image': request.form.get('user_image')
+        'user_image': request.form.get('user_image'),
+        'user_linkedin': request.form.get('user_linkedin'),
+        'user_facebook': request.form.get('user_facebook'),
+        'user_github': request.form.get('user_github')
     }
     users.update_one(
         {'_id': ObjectId(user_id)},
