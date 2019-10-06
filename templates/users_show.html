@@ -5,6 +5,9 @@
     <div class='row'>
     <div class='col-sm-6 col-sm-offset-3'>
         <h1>{{ user.user_name }}</h1>
+        {% if user.user_image != "" %}
+            <a href={{user.user_image}}><img src={{user.user_image}} style="width:250px; height:300px"></a>
+        {% endif %}
         <h2>{{ user.user_description }}</h2>
         <h4>User Rating: {{ user.user_rating }}</h4>
         <!-- {% for video in user.videos %}

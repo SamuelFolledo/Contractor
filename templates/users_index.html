@@ -8,6 +8,9 @@
         {% for user in users %}
             <div class='col-md-3'>
                 <h2><a href='/users/{{ user._id }}'>{{ user.user_name }}</a></h2>
+                {% if user.user_image != "" %}
+                    <a href={{user.user_image}}><img src={{user.user_image}} style="width:250px; height:300px"></a>
+                {% endif %}
                 <small>{{ user.user_description }}</small>
             </div>
         {% endfor %}

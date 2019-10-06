@@ -3,11 +3,17 @@
 <fieldset> <!--The fieldset element represents a set of form controls optionally grouped under a common name-->
     <legend>{{ title }}</legend> <!--The legend element represents a caption for the rest of the contents of the legend element's parent fieldset element, if any-->
     <div class='form-group'> <!-- TITLE -->
-        <label for='user-name'>Full Name</label><br>
+        <label for='user-name'>Full Name:</label><br>
         <input class='form-control' id='user-name' type='text' name='user_name' value='{{ user.user_name }}'/>
     </div>
+    
+    <div class='form-group'> 
+        <label for='user-image'>Link to your profile picture:</label><br>
+        <input class='form-control' id='user-image' type='text' name='user_image' value='{{ user.user_image }}' />
+    </div>
+
     <div class='form-group'> <!-- DESCRIPTION -->
-        <label for='user-description'>Describe yourself</label><br>
+        <label for='user-description'>Describe yourself:</label><br>
         <!-- <input type='text' name='description' /> -->
         <input class='form-control' id='user-description' type='text' name='user_description' value='{{ user.user_description }}' />
     </div>
