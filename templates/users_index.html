@@ -7,10 +7,16 @@
     <div class='row'>
         {% for user in users %}
             <div class='col-md-3'>
-                <h2><a href='/users/{{ user._id }}'>{{ user.user_name }}</a></h2>
+                <h2>
+                    <a href='/users/{{ user._id }}'>{{ user.user_name }}</a>
+                </h2>
                 {% if user.user_image is defined and user.user_image|length %}
-                    <a href=/users/{{ user._id }}><img class="rounded-circle img-fluid" src={{user.user_image}} style="width:250px; height:300px"></a>
+                    <a href=/users/{{ user._id }}>
+                        <img class="rounded-circle img-fluid" src={{user.user_image}} style="width:250px; height:300px">
+                    </a>
+                    <button class="btn">Add To Favorites</button>
                 {% endif %}
+
                 <small>{{ user.user_description }}</small>
             </div>
         {% endfor %}
