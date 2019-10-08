@@ -10,11 +10,19 @@ host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Contractor')
 client = MongoClient(host = f'{host}?retryWrites=false')
 db = client.get_default_database()
 users = db.users
+current_users = db.current_users
 
 
 @app.route('/')
 def users_index():
-    return render_template('users_index.html', users = users.find())
+    user_id = current_users.find()
+    print(f"User id is {user_id}")
+    current_user = None
+    if user_id == None:
+        current_user = users.find_one({'_id': ObjectId(user_id)})
+        print(f"User id is {current_user}") 
+    
+    return render_template('users_index.html', current_user = current_user, users = users.find())
 
 @app.route('/users/new') #NEW
 def userss_new():

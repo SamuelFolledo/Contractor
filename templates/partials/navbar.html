@@ -20,20 +20,28 @@
                 <a class="nav-item active nav-link" id="link-home" href="/">Home
                     <span class="sr-only">(current)</span>
                 </a>
-                <a class="nav-item nav-link" id="link-cart" href="/cart/new">Cart</a>
-                <a class="nav-item nav-link" id="link-listings" href="/projects/new">Sell</a>
-                
-                <li class="nav-item dropdown"> <!--Profile Dropdown-->
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profile
-                    </a>
-                    <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/users/new">Profile</a>
-                        <a class="dropdown-item" href="#">Manage Listings</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Logout</a>
-                    </div>
-                </li>
+
+                {% if current_user != None %}
+                    <a class="nav-item nav-link" id="navitem" href="/cart/new">Cart</a>
+                    <a class="nav-item nav-link" id="navitem" href="/projects/new">Sell</a>
+                    
+                    <li class="nav-item dropdown"> <!--Profile Dropdown-->
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Profile
+                        </a>
+                        <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            
+                            <a class="dropdown-item" href="#">Manage Listings</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
+                    </li>
+
+                {% else %}
+                    <a class="nav-item nav-link" id="navitem" href="/users/login">Login</a>
+                    <a class="nav-item nav-link" id="navitem" href="/users/new">Register</a>
+                {% endif %}
 
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

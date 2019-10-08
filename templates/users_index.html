@@ -14,9 +14,8 @@
                     <a href=/users/{{ user._id }}>
                         <img class="rounded-circle img-fluid" src={{user.user_image}} style="width:250px; height:300px">
                     </a>
-                    <button class="btn">Add To Favorites</button>
                 {% endif %}
-
+                <button class="btn">Add To Favorites</button>
                 <small>{{ user.user_description }}</small>
             </div>
         {% endfor %}
