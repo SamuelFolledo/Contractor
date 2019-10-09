@@ -38,7 +38,7 @@ def user_submit():
     #Error handling
     # if username
     if username[0] == "@":
-        return render_template('user_register.html', user_name_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'New User')
+        return render_template('user_register.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'New User')
     if password != confirm_password:
         return render_template('user_register.html', password_error = True, error_message = "Password and Confirm password does not match", current_user = user, title = 'New User')
 
