@@ -28,18 +28,32 @@ def user_submit():
     username = request.form.get('user_username') #add @ before username to know that it is a username
     password = request.form.get('user_password')
     confirm_password = request.form.get('user_confirm_password')
+    first_name = request.form.get('user_first_name')
+    last_name = request.form.get('user_last_name')
     user = {
         'user_username': username,
-        'user_first_name': request.form.get('user_first_name'),
-        'user_last_name': request.form.get('user_last_name'),
+        'user_first_name': first_name,
+        'user_last_name': last_name,
         'user_password': password,
         'user_confirm_password': confirm_password
     }
     #Error handling
-    # if username
-    if username[0] == "@":
+    #Check if inputs are whitespace or empty only
+    if username == "" or username == " ":
+        return render_template('user_register.html', username_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
+    if first_name == "" or first_name == " ":
+        return render_template('user_register.html', first_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
+    if last_name == "" or last_name == " ":
+        return render_template('user_register.html', last_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
+    if password == "" or password == " ":
+        return render_template('user_register.html', password_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
+
+    if username[0] == "@": #checks if username has @ in the beginning
         return render_template('user_register.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'New User')
-    if password != confirm_password:
+    if users.find({"user_username":username}).count() > 0: #check if username already exists
+        return render_template('user_register.html', username_error = True, error_message = "Username already exist", current_user = user, title = 'New User')
+
+    if password != confirm_password: #check if passwords and confirm pass match
         return render_template('user_register.html', password_error = True, error_message = "Password and Confirm password does not match", current_user = user, title = 'New User')
 
     
@@ -50,7 +64,7 @@ def user_submit():
     return redirect(url_for('index', current_user = current_user, user_id = user_id))
 
 def fetch_user(username):
-    user = users.find_one({"user_username": username})
+    user = users.find({"user_username": username}).limit(1) #find limit 1 is faster than find_one
 
 def insert_at_symbol(username): #user's helper method that inserts @ symbol to a username
     return username[:0]+"@"+username[0:]

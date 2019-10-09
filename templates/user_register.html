@@ -21,11 +21,21 @@
                 <div class='form-group'> 
                     <label for='user-first_name'>First Name:</label><br>
                     <input class='form-control' id='user-first_name' type='text' name='user_first_name' value='{{current_user.user_first_name}}' />
+                    {% if first_name_error is defined and first_name_error == True %}
+                        <small class="form-text text-muted">
+                            {{error_message}}
+                        </small>
+                    {% endif %}
                 </div>
             
                 <div class='form-group'> 
                     <label for='user-last_name'>Last Name:</label><br>
                     <input class='form-control' id='user-last_name' type='text' name='user_last_name' value='{{current_user.user_last_name}}' />
+                    {% if last_name_error is defined and last_name_error == True %}
+                        <small class="form-text text-muted">
+                            {{error_message}}
+                        </small>
+                    {% endif %}
                 </div>
             
                 <div class='form-group'> 
