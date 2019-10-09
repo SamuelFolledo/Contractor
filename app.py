@@ -21,7 +21,8 @@ def index():
 ########################################### USERS ###########################################
 @app.route('/user/new') #USER NEW
 def user_register():
-    return render_template('user_register.html', current_user = {}, title = 'New User')
+    current_user = {"_id":"", "user_username":"", "user_first_name":"", "user_last_name":"", "user_password":"", "user_favorites": [], "user_listings":[]}
+    return render_template('user_register.html', current_user = current_user, title = 'New User')
 
 @app.route('/user', methods=['POST']) #USER SUBMIT
 def user_submit():
@@ -61,10 +62,11 @@ def user_submit():
     username = insert_at_symbol(username) #insert @ to username
     user_id = users.insert_one(user).inserted_id
     current_user= {"_id":user_id, "user_username":username}
+    print(f"Current user is {current_user}")
     return redirect(url_for('index', current_user = current_user, user_id = user_id))
 
-def fetch_user(username):
-    user = users.find({"user_username": username}).limit(1) #find limit 1 is faster than find_one
+# def fetch_user(username):
+#     user = users.find({"user_username": username}).limit(1) #find limit 1 is faster than find_one
 
 def insert_at_symbol(username): #user's helper method that inserts @ symbol to a username
     return username[:0]+"@"+username[0:]
