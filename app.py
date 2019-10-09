@@ -12,10 +12,10 @@ db = client.get_default_database()
 users = db.users
 projects = db.projects
 
-current_user = {"_id":"", "username":""}
+current_user = {"_id":"", "user_username":"", "user_first_name":"", "user_last_name":"", "user_password":"", "user_favorites": [], "user_listings":[]}
 
 @app.route('/')
-def projects_index():
+def index():
     return render_template('projects_index.html', current_user = current_user, projects = projects.find())
 
 ########################################### USERS ###########################################
@@ -25,19 +25,38 @@ def user_register():
 
 @app.route('/user', methods=['POST']) #USER SUBMIT
 def user_submit():
+    username = request.form.get('user_username') #add @ before username to know that it is a username
+    password = request.form.get('user_password')
+    confirm_password = request.form.get('user_confirm_password')
     user = {
-        'user_username': request.form.get('user_username'),
+        'user_username': username,
         'user_first_name': request.form.get('user_first_name'),
         'user_last_name': request.form.get('user_last_name'),
-        'user_password': request.form.get('user_password'),
-        'user_confirm_password': request.form.get('user_confirm_password')
+        'user_password': password,
+        'user_confirm_password': confirm_password
     }
+    #Error handling
+    # if username
+    if username[0] == "@":
+        return render_template('user_register.html', user_name_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'New User')
+    if password != confirm_password:
+        return render_template('user_register.html', password_error = True, error_message = "Password and Confirm password does not match", current_user = user, title = 'New User')
+
+    
+
+    username = insert_at_symbol(username) #insert @ to username
     user_id = users.insert_one(user).inserted_id
-    current_user= {"_id":user_id, "username":user["user_username"]}
-    return redirect(url_for('projects_show', current_user = current_user, user_id = user_id))
+    current_user= {"_id":user_id, "user_username":username}
+    return redirect(url_for('index', current_user = current_user, user_id = user_id))
 
+def fetch_user(username):
+    user = users.find_one({"user_username": username})
 
+def insert_at_symbol(username): #user's helper method that inserts @ symbol to a username
+    return username[:0]+"@"+username[0:]
 
+def remove_at_symbol(username): #user's helper method that removes @ symbol to a username
+    return username[1:]
 
 ########################################### PROJECTS ########################################### 
 @app.route('/projects/new') #NEW
@@ -88,7 +107,7 @@ def projects_update(project_id):
 @app.route('/projects/<project_id>/delete', methods=['POST']) #DELETE
 def projects_delete(project_id):
     projects.delete_one({'_id': ObjectId(project_id)})
-    return redirect(url_for('projects_index'))
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
