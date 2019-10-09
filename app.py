@@ -21,12 +21,11 @@ def index():
 ########################################### USERS ###########################################
 @app.route('/user/new') #USER NEW
 def user_register():
-    current_user = {"_id":"", "user_username":"", "user_first_name":"", "user_last_name":"", "user_password":"", "user_favorites": [], "user_listings":[]}
     return render_template('user_register.html', current_user = current_user, title = 'New User')
 
 @app.route('/user', methods=['POST']) #USER SUBMIT
 def user_submit():
-    username = request.form.get('user_username') #add @ before username to know that it is a username
+    username = request.form.get('user_username').lower() #add @ before username to know that it is a username
     password = request.form.get('user_password')
     confirm_password = request.form.get('user_confirm_password')
     first_name = request.form.get('user_first_name')
@@ -51,17 +50,17 @@ def user_submit():
 
     if username[0] == "@": #checks if username has @ in the beginning
         return render_template('user_register.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'New User')
-    if users.find({"user_username":username}).count() > 0: #check if username already exists
+    if users.find({"user_username":insert_at_symbol(username)}).count() > 0: #check if username already exists
         return render_template('user_register.html', username_error = True, error_message = "Username already exist", current_user = user, title = 'New User')
 
     if password != confirm_password: #check if passwords and confirm pass match
         return render_template('user_register.html', password_error = True, error_message = "Password and Confirm password does not match", current_user = user, title = 'New User')
 
     
-
-    username = insert_at_symbol(username) #insert @ to username
+    user["user_username"] = insert_at_symbol(username) #insert an @ and lowercase username 
+    # username = insert_at_symbol(username) #insert @ to username
     user_id = users.insert_one(user).inserted_id
-    current_user= {"_id":user_id, "user_username":username}
+    current_user= user
     print(f"Current user is {current_user}")
     return redirect(url_for('index', current_user = current_user, user_id = user_id))
 
@@ -72,7 +71,7 @@ def insert_at_symbol(username): #user's helper method that inserts @ symbol to a
     return username[:0]+"@"+username[0:]
 
 def remove_at_symbol(username): #user's helper method that removes @ symbol to a username
-    return username[1:]
+    return username[1:] #return username without first character
 
 ########################################### PROJECTS ########################################### 
 @app.route('/projects/new') #NEW

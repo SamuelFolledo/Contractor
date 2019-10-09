@@ -22,7 +22,7 @@
                 </a>
                 <a class="nav-item nav-link" id="navitem" href="/projects/new">Sell</a>
                 
-                {% if current_user["_id"] != "" %}
+                {% if current_user["_id"] is defined and current_user["_id"] != "" %}
                     <a class="nav-item nav-link" id="navitem" href="/cart/new">Cart</a>
                     <!-- <a class="nav-item nav-link" id="navitem" href="/projects/new">Sell</a> -->
                     
