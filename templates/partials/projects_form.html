@@ -1,0 +1,54 @@
+<!-- templates/partials/projects_form.html -->
+
+<fieldset> <!--The fieldset element represents a set of form controls optionally grouped under a common name-->
+    <legend>{{ title }}</legend> <!--The legend element represents a caption for the rest of the contents of the legend element's parent fieldset element, if any-->
+    <div class='form-group'> <!-- TITLE -->
+        <label for='project-name'>Name:</label><br>
+        <input class='form-control' id='project-name' type='text' name='project_name' value='{{ project.project_name }}'/>
+    </div>
+
+    
+    <div class='form-group'> 
+        <label for='project-image'>Link to your project picture:</label><br>
+        <input class='form-control' id='project-image' type='text' name='project_image' value='{{ project.project_image }}' />
+    </div>
+
+    <div class='form-group'> <!-- DESCRIPTION -->
+        <label for='project-description'>Describe yourself:</label><br>
+        <!-- <input type='text' name='description' /> -->
+        <input class='form-control' id='project-description' type='text' name='project_description' value='{{ project.project_description }}' />
+    </div>
+
+
+    <div class='form-group'> 
+        <label for='project-linkedin'>Link to your LinkedIn profile:</label><br>
+        <input class='form-control' id='project-linkedin' type='text' name='project_linkedin' value='{{ project.project_linkedin }}' />
+    </div>
+
+    <div class='form-group'> 
+        <label for='project-facebook'>Link to your Facebook profile:</label><br>
+        <input class='form-control' id='project-facebook' type='text' name='project_facebook' value='{{ project.project_facebook }}' />
+    </div>
+
+    <div class='form-group'> 
+        <label for='project-github'>Link to your GitHub account:</label><br>
+        <input class='form-control' id='project-github' type='text' name='project_github' value='{{ project.project_github }}' />
+    </div>
+
+
+    <!-- <div class='form-group'> 
+        <label for='project-videos'>Videos</label><br>
+        <p class='text-muted'>Add videos in the form of 'https://youtube.com/embed/KEY'. Separate with a newline.</p>
+        <textarea class='form-control' id='project-videos' name='videos' rows='10'> {{ "\n".join(project.videos) }}</textarea>
+    </div> -->
+    <div class='form-group'> <!--RATINGS-->
+        How would you rate the project?
+        <select id = 'project_rating' name='project_rating'> <!-- drop down defaulted at 5' -->
+            <option value=5 selected = 'selected'>5</option>
+            <option value=4>4</option>
+            <option value=3>3</option>
+            <option value=2>2</option>
+            <option value=1>1</option>
+        </select>
+    </div> 
+</fieldset>

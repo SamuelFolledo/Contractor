@@ -1,0 +1,47 @@
+<!-- templates/user_register.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+        <form method='POST' action='/user'>
+            <fieldset> <!--The fieldset element represents a set of form controls optionally grouped under a common name-->
+                <legend>Register</legend> <!--The legend element represents a caption for the rest of the contents of the legend element's parent fieldset element, if any-->
+                <div class='form-group'> 
+                    <label for='user-username'>Username:</label><br>
+                    <input class='form-control' id='user-username' type='text' name='user_username' value=''/>
+                </div>
+                
+                <div class='form-group'> 
+                    <label for='user-first_name'>First Name:</label><br>
+                    <input class='form-control' id='user-first_name' type='text' name='user_first_name' value='' />
+                </div>
+            
+                <div class='form-group'> 
+                    <label for='user-last_name'>Last Name:</label><br>
+                    <input class='form-control' id='user-last_name' type='text' name='user_last_name' value='' />
+                </div>
+            
+                <div class='form-group'> 
+                    <label for='user-linkedin'>Password:</label><br>
+                    <input class='form-control' id='user-password' type='text' name='user_password' value='' />
+                </div>
+            
+                <div class='form-group'> 
+                    <label for='user-facebook'>Confirm Password:</label><br>
+                    <input class='form-control' id='user-facebook' type='text' name='user_confirm_password' value='' />
+                </div>
+            
+            </fieldset>
+            
+
+            <!-- BUTTON -->
+            <div class='form-group'>
+                <button class='btn btn-primary' type='submit'>Save User</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+<!-- templates/projects_show.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+        <h1>{{ project.project_name }}</h1>
+
+        {% if project.project_image is defined and project.project_image|length %}
+            <a href={{ project.project_image }}><img class="rounded img-fluid" src={{ project.project_image }} style="width:250px; height:300px"></a>
+        {% endif %}
+
+        {% if project.project_description is defined and project.project_description|length %}
+            <h5>{{ project.project_description }}</h5>
+        {% endif %}
+
+        {% if project.project_rating is defined %}
+            <h6>project Rating: {{ project.project_rating }}</h6>
+        {% endif %}
+        <!-- {% for video in project.videos %}
+            <div class="card"><div class="card-body">
+                <iframe width="420" height="315" src="{{ video }}"></iframe>
+            </div></div>
+        {% endfor %} -->
+        <p><a href='/projects/{{ project._id }}/edit'>Edit</a></p>
+        <!-- <p>
+            <a<button class='btn btn-primary' href='/projects/{{ project._id }}/edit'>EDIT!</a></button>
+        </p> -->
+
+        <p><form method='POST' action='/projects/{{ project._id }}/delete'>
+            <input type='hidden' name='_method' value='DELETE'>
+            <button class='btn btn-primary' type='submit'>Delete</button>
+        </form></p>
+        <br><br><br>
+        {% if project.project_linkedin is defined and project.project_linkedin|length %}
+            <p><a href={{project.project_linkedin}}>LinkedIn</a></p>
+        {% endif %}
+        {% if project.project_facebook is defined and project.project_facebook|length %}
+            <p><a href={{project.project_facebook}}>Facebook</a></p>
+        {% endif %}
+        {% if project.project_github is defined and project.project_github|length %} <!--checks if project has those properties is defined and not empty-->
+            <p><a href={{project.project_github}}>GitHub</a></p>
+        {% endif %}
+    </div>
+    </div>
+
+{% endblock %}

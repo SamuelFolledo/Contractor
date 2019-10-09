@@ -10,62 +10,85 @@ host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Contractor')
 client = MongoClient(host = f'{host}?retryWrites=false')
 db = client.get_default_database()
 users = db.users
+projects = db.projects
 
-current_user = {"username":"", "_id":""}
+current_user = {"_id":"", "username":""}
 
 @app.route('/')
-def users_index():
-    return render_template('users_index.html', current_user = current_user, users = users.find())
+def projects_index():
+    return render_template('projects_index.html', current_user = current_user, projects = projects.find())
 
-@app.route('/users/new') #NEW
-def users_new():
-    return render_template('users_new.html', current_user = current_user, user = {}, title = 'New User')
+########################################### USERS ###########################################
+@app.route('/user/new') #USER NEW
+def user_register():
+    return render_template('user_register.html', current_user = {}, title = 'New User')
 
-@app.route('/users', methods=['POST']) #SUBMIT
-def users_submit():
+@app.route('/user', methods=['POST']) #USER SUBMIT
+def user_submit():
     user = {
-        'user_name': request.form.get('user_name'),
-        'user_description': request.form.get('user_description'),
-        'user_rating': int(request.form.get('user_rating')),
-        'user_image': request.form.get('user_image'),
-        'user_linkedin': request.form.get('user_linkedin'),
-        'user_facebook': request.form.get('user_facebook'),
-        'user_github': request.form.get('user_github')
+        'user_username': request.form.get('user_username'),
+        'user_first_name': request.form.get('user_first_name'),
+        'user_last_name': request.form.get('user_last_name'),
+        'user_password': request.form.get('user_password'),
+        'user_confirm_password': request.form.get('user_confirm_password')
     }
     user_id = users.insert_one(user).inserted_id
-    return redirect(url_for('users_show', current_user = current_user, user_id = user_id))
+    current_user= {"_id":user_id, "username":user["user_username"]}
+    return redirect(url_for('projects_show', current_user = current_user, user_id = user_id))
 
-@app.route('/users/<user_id>') #SHOW
-def users_show(user_id):
-    user = users.find_one({'_id': ObjectId(user_id)})
-    return render_template('users_show.html', current_user = current_user, user = user)
 
-@app.route('/users/<user_id>/edit') #EDIT
-def users_edit(user_id):
-    user = users.find_one({'_id': ObjectId(user_id)})
-    return render_template('users_edit.html', current_user = current_user, user=user, title = 'Edit User')
 
-@app.route('/users/<user_id>', methods=['POST']) #Submit the UPDATED user
-def users_update(user_id):
-    updated_user = {
-        'user_name': request.form.get('user_name'),
-        'user_description': request.form.get('user_description'),
-        # 'videos': request.form.get('videos').split()
-        'user_rating': int(request.form.get('user_rating')),
-        'user_image': request.form.get('user_image'),
-        'user_linkedin': request.form.get('user_linkedin'),
-        'user_facebook': request.form.get('user_facebook'),
-        'user_github': request.form.get('user_github')
+
+########################################### PROJECTS ########################################### 
+@app.route('/projects/new') #NEW
+def projects_new():
+    return render_template('projects_new.html', current_user = current_user, project = {}, title = 'New Project')
+
+@app.route('/projects', methods=['POST']) #SUBMIT
+def projects_submit():
+    project = {
+        'project_name': request.form.get('project_name'),
+        'project_description': request.form.get('project_description'),
+        'project_rating': int(request.form.get('project_rating')),
+        'project_image': request.form.get('project_image'),
+        'project_linkedin': request.form.get('project_linkedin'),
+        'project_facebook': request.form.get('project_facebook'),
+        'project_github': request.form.get('project_github')
     }
-    users.update_one(
-        {'_id': ObjectId(user_id)},
-        {'$set': updated_user})
-    return redirect(url_for('users_show', current_user = current_user, user_id=user_id))
+    project_id = projects.insert_one(project).inserted_id
+    return redirect(url_for('projects_show', current_user = current_user, project_id = project_id))
 
-@app.route('/users/<user_id>/delete', methods=['POST']) #DELETE
-def users_delete(user_id):
-    users.delete_one({'_id': ObjectId(user_id)})
-    return redirect(url_for('users_index'))
+@app.route('/projects/<project_id>') #SHOW
+def projects_show(project_id):
+    project = projects.find_one({'_id': ObjectId(project_id)})
+    return render_template('projects_show.html', current_user = current_user, project = project)
+
+@app.route('/projects/<project_id>/edit') #EDIT
+def projects_edit(project_id):
+    project = projects.find_one({'_id': ObjectId(project_id)})
+    return render_template('projects_edit.html', current_user = current_user, project=project, title = 'Edit project')
+
+@app.route('/projects/<project_id>', methods=['POST']) #Submit the UPDATED project
+def projects_update(project_id):
+    updated_project = {
+        'project_name': request.form.get('project_name'),
+        'project_description': request.form.get('project_description'),
+        # 'videos': request.form.get('videos').split()
+        'project_rating': int(request.form.get('project_rating')),
+        'project_image': request.form.get('project_image'),
+        'project_linkedin': request.form.get('project_linkedin'),
+        'project_facebook': request.form.get('project_facebook'),
+        'project_github': request.form.get('project_github')
+    }
+    projects.update_one(
+        {'_id': ObjectId(project_id)},
+        {'$set': updated_project})
+    return redirect(url_for('projects_show', current_user = current_user, project_id=project_id))
+
+@app.route('/projects/<project_id>/delete', methods=['POST']) #DELETE
+def projects_delete(project_id):
+    projects.delete_one({'_id': ObjectId(project_id)})
+    return redirect(url_for('projects_index'))
 
 
 if __name__ == '__main__':

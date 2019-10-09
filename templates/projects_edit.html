@@ -1,15 +1,15 @@
-<!-- templates/users_edit.html -->
+<!-- templates/projects_edit.html -->
 {% extends 'base.html' %}
 
 {% block content %}
     <div class='row'>
     <div class='col-sm-6 col-sm-offset-3'>
-        <form method='POST' action='/users/{{user._id}}'>
+        <form method='POST' action='/projects/{{project._id}}'>
             <input type='hidden' name='_method' value='PUT'/>
-            {% include 'partials/users_form.html' %}
+            {% include 'partials/projects_form.html' %}
             
             <div class='form-group'><!-- BUTTON -->
-                <button class='btn btn-primary' type='submit'>Save User</button>
+                <button class='btn btn-primary' type='submit'>Save Project</button>
             </div>
         </form>
     </div>

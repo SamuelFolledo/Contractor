@@ -20,7 +20,8 @@
                 <a class="nav-item active nav-link" id="link-home" href="/">Home
                     <span class="sr-only">(current)</span>
                 </a>
-
+                <a class="nav-item nav-link" id="navitem" href="/projects/new">Sell</a>
+                
                 {% if current_user["_id"] != "" %}
                     <a class="nav-item nav-link" id="navitem" href="/cart/new">Cart</a>
                     <a class="nav-item nav-link" id="navitem" href="/projects/new">Sell</a>
@@ -39,8 +40,8 @@
                     </li>
 
                 {% else %}
-                    <a class="nav-item nav-link" id="navitem" href="/users/login">Login</a>
-                    <a class="nav-item nav-link" id="navitem" href="/users/new">Register</a>
+                    <a class="nav-item nav-link" id="navitem" href="/user/login">Login</a>
+                    <a class="nav-item nav-link" id="navitem" href="/user/new">Register</a>
                 {% endif %}
 
                 <form class="form-inline my-2 my-lg-0">
