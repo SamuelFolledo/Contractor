@@ -20,77 +20,99 @@ def index():
 
 ########################################### USERS ###########################################
 @app.route('/user/<user_id>')
-def user_home(user_id): #SHOW USER HOME
+def user_home(user_id): #USER HOME
     current_user = users.find_one({'_id': ObjectId(user_id)})
-    print(f"USER IS {current_user}")
+    print(f"CURRENT USER IN HOME IS {current_user}")
+    
     # print(f"USERS ARE {users.find()}")
     return render_template('projects_index.html', current_user = current_user, projects = projects.find())
 
-
-@app.route('/register') #USER NEW
-def user_register():
-    return render_template('user_register.html', current_user = current_user, title = 'New User')
-
 @app.route('/user', methods=['POST']) #USER SUBMIT
 def user_submit():
-    username = request.form.get('user_username').lower() #add @ before username to know that it is a username
+    # is_login = request.form.get('is_login')
+    username = request.form.get('user_username').lower()
     password = request.form.get('user_password')
-    confirm_password = request.form.get('user_confirm_password')
-    first_name = request.form.get('user_first_name')
-    last_name = request.form.get('user_last_name')
-    user = {
-        'user_username': username,
-        'user_first_name': first_name,
-        'user_last_name': last_name,
-        'user_password': password,
-        'user_confirm_password': confirm_password
-    }
-    #Error handling
-    #Check if inputs are whitespace or empty only
-    if username == "" or username == " ":
-        return render_template('user_register.html', username_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
-    if first_name == "" or first_name == " ":
-        return render_template('user_register.html', first_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
-    if last_name == "" or last_name == " ":
-        return render_template('user_register.html', last_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
-    if password == "" or password == " ":
-        return render_template('user_register.html', password_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
-
-    if username[0] == "@": #checks if username has @ in the beginning
-        return render_template('user_register.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'New User')
-    if users.find({"user_username":insert_at_symbol(username)}).count() > 0: #check if username already exists
-        return render_template('user_register.html', username_error = True, error_message = "Username already exist", current_user = user, title = 'New User')
-
-    if password != confirm_password: #check if passwords and confirm pass match
-        return render_template('user_register.html', password_error = True, error_message = "Password and Confirm password does not match", current_user = user, title = 'New User')
-
     
-    user["user_username"] = insert_at_symbol(username) #insert an @ and lowercase username 
-    user_id = users.insert_one(user).inserted_id #insert user and get the id
-    return redirect(url_for('user_home', user_id = user_id))
+    if request.form.get('is_login') == None: #REGISTER
+        confirm_password = request.form.get('user_confirm_password')
+        first_name = request.form.get('user_first_name')
+        last_name = request.form.get('user_last_name')
+        user = {
+            'user_username': username,
+            'user_first_name': first_name,
+            'user_last_name': last_name,
+            'user_password': password,
+            'user_confirm_password': confirm_password
+        }
+        #Error handling
+        if username == "  " or username == " ":
+            return render_template('user_register.html', username_error = True, error_message = "Please input a valid value", current_user = user, title = 'Register')
+        if first_name == "  " or first_name == " ":
+            return render_template('user_register.html', first_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'Register')
+        if last_name == "  " or last_name == " ":
+            return render_template('user_register.html', last_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'Register')
+        if password == "  " or password == " ":
+            return render_template('user_register.html', password_error = True, error_message = "Please input a valid value", current_user = user, title = 'Register')
 
+        if username[0] == "@": #checks if username has @ in the beginning
+            return render_template('user_register.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'Register')
+        if users.find({"user_username":insert_at_symbol(username)}).count() > 0: #check if username already exists
+            return render_template('user_register.html', username_error = True, error_message = "Username already exist", current_user = user, title = 'Register')
 
-@app.route('/login', methods=['POST']) #USER SUBMIT
+        if password != confirm_password: #check if passwords and confirm pass match
+            return render_template('user_register.html', password_error = True, error_message = "Password and Confirm password does not match", current_user = user, title = 'Register')
+        
+        # user["user_username"] = insert_at_symbol(username) #insert an @ and lowercase username 
+        user_id = users.insert_one(user).inserted_id #insert user and get the id
+        current_user['_id'] = user_id
+        current_user['user_username'] = username
+        current_user['user_first_name'] = first_name
+        current_user['user_last_name'] = last_name
+        current_user['user_favorites'] = []
+        current_user['user_listings'] = []
+        current_user['user_username'] = password
+
+        return redirect(url_for('user_home', user_id = current_user['_id'])) 
+    
+    else: #LOGIN
+        user = {
+            'user_username': username,
+            'user_password': password
+        }
+        #Error handling
+        if username == "  " or username == " ":
+            return render_template('user_login.html', username_error = True, error_message = "Please input a valid value", current_user = user, title = 'Login')
+        if password == "  " or password == " ":
+            return render_template('user_login.html', password_error = True, error_message = "Please input a valid value", current_user = user, title = 'Login')
+        if username[0] == "@": #checks if username has @ in the beginning
+            return render_template('user_login.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'Login')
+        
+        cursor = users.find({"user_username":username})
+        if cursor.count() < 1: #check if username does not exist
+            return render_template('user_login.html', username_error = True, error_message = "Username does not exist", current_user = user, title = 'Login')
+
+        for doc in cursor:
+            if doc['user_password'] != password:
+                return render_template('user_login.html', password_error = True, error_message = "Incorrect password", current_user = user, title = 'Login')
+            current_user['_id'] = doc['_id']
+            current_user['user_username'] = doc['user_username']
+            current_user['user_first_name'] = doc['user_first_name']
+            current_user['user_last_name'] = doc['user_last_name']
+            current_user['user_favorites'] = doc['user_favorites']
+            current_user['user_listings'] = doc['user_listings']
+            current_user['user_password'] = doc['user_password']
+            
+        return redirect(url_for('user_home', user_id = current_user['_id']))
+    return render_template('user_login.html', username_error = True, error_message = "Incorrect username or password", current_user = current_user, title = 'Login')
+
+@app.route('/register') #USER REGISTER
+def user_register():
+    return render_template('user_register.html', current_user = current_user, title = 'Register User')
+
+@app.route('/login') #USER LOGIN
 def user_login():
-    username = request.form.get('user_username').lower() #add @ before username to know that it is a username
-    password = request.form.get('user_password')
-    user = {
-        'user_username': username,
-        'user_password': password
-    }
-    #Error handling
-    if username == "" or username == " ":
-        return render_template('user_login.html', username_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
-    if password == "" or password == " ":
-        return render_template('user_login.html', password_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
-    if username[0] == "@": #checks if username has @ in the beginning
-        return render_template('user_login.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'New User')
-    
-    if users.find({"user_username":insert_at_symbol(username)}).count() < 1: #check if username does not exist
-        return render_template('user_login.html', username_error = True, error_message = "Username does not exist", current_user = user, title = 'New User')
-    
-    user_id = users.find({"user_username":insert_at_symbol(username)})
-    return redirect(url_for('user_home', user_id = user_id))
+    return render_template('user_login.html', current_user = current_user, title = 'Login User')
+
 
 def insert_at_symbol(username): #user's helper method that inserts @ symbol to a username
     return username[:0]+"@"+username[0:]
