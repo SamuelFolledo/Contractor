@@ -13,6 +13,7 @@ users = db.users
 projects = db.projects
 carts = db.carts
 listings = db.listings
+offers = db.offers
 
 current_user = {"_id":"", "user_username":"", "user_first_name":"", "user_last_name":"", "user_password":"", "user_cart_id": "", "user_listings_id":"", "is_admin":False}
 
@@ -206,7 +207,8 @@ def projects_submit():
 @app.route('/projects/<project_id>') #SHOW
 def projects_show(project_id):
     project = projects.find_one({'_id': ObjectId(project_id)})
-    return render_template('projects_show.html', current_user = current_user, project = project)
+    project_offers = offers.find({'projects_id':ObjectId(project_id)})
+    return render_template('projects_show.html', current_user = current_user, project = project, offers=project_offers)
 
 @app.route('/projects/<project_id>/edit') #EDIT
 def projects_edit(project_id):
@@ -235,6 +237,21 @@ def projects_update(project_id):
 def projects_delete(project_id):
     projects.delete_one({'_id': ObjectId(project_id)})
     return redirect(url_for('index'))
+
+
+########################################### OFFERS ROUTES ###########################################
+
+@app.route('/projects/offers', methods=['POST'])
+def offers_new():
+    """Submit a new offer."""
+    offer = {
+        'price': request.form.get('price'),
+        'description': request.form.get('description'),
+        'project_id': ObjectId(request.form.get('project_id'))
+    }
+    print(offer)
+    offer_id = offers.insert_one(offer).inserted_id
+    return redirect(url_for('projects_show', project_id=request.form.get('project_id')))
 
 
 if __name__ == '__main__':

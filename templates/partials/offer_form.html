@@ -1,24 +1,26 @@
-<!-- templates/partials/comment_form.html -->
+<!-- templates/partials/offer_form.html -->
 
-<form>
+<form action='/projects/offers' method='POST'>
+    <input type='hidden' value='{{ project._id }}' name='project_id'/>
+
     <fieldset>
-        <legend>Add a Comment</legend>
+        <legend>Bid Offering</legend>
         <!-- Price -->
         <div class='form-group'>
-            <label for='comment-title'>Bid Amount</label><br>
+            <label for='offer-title'>Amount to Offer</label><br>
             <input class='form-control'
-                id='comment-title'
-                type='number'
+                id='offer-title'
+                type='text'
                 name='price'
-                placeholder='Bid Amount'/>
+                placeholder='Price $$$'/>
         </div>
 
         <!-- DESCRIPTION -->
         <div class='form-group'>
-            <label for='comment-content'>Bidder Description</label><br>
+            <label for='offer-content'>Bidder Description</label><br>
             <textarea class='form-control'
-                id='comment-content'
-                name='content'
+                id='offer-content'
+                name='description'
                 rows='5'
                 placeholder='Your Description...'></textarea>
         </div>
