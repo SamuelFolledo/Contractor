@@ -1,0 +1,27 @@
+<!-- templates/user_edit.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+        <form method='POST' action='/user'>
+            
+            {% include 'partials/user_form.html' %}
+
+            <input type="hidden" name="is_login" value=False>
+            
+            <!-- BUTTON -->
+            <div class='form-group'>
+                <button class='btn btn-primary btn-block' type='submit'>Save User</button>
+            </div>
+            <!-- <br>
+            <br>
+            <div class='form-group'>
+                    <a href="/login" class="btn btn-outline-primary btn-block">Already have an account?</a>
+            </div> -->
+        </form>
+    </div>
+</div>
+
+{% endblock %}

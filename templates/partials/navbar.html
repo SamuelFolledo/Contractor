@@ -6,7 +6,7 @@
         <div class='navbar-header'>
             <a class='navbar-brand' href='/'>
                 <img src="/static/photos/lion-logo.png" width="30" height="30" class="d-inline-block align-top" alt="store logo">
-                All Night
+                You Jelly
             </a>
         </div>
         
@@ -27,14 +27,14 @@
                     <a class="nav-item nav-link" id="navitem" href="/projects/new">Sell</a>
                     
                     <li class="nav-item dropdown"> <!--Profile Dropdown-->
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{current_user["user_first_name"]}}
+                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{current_user.user_first_name}}
                         </a>
                         <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="/user/{{ current_user._id }}/edit">Profile</a>
                             
-                            <a class="dropdown-item" href="#">Manage Listings</a>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="">Manage Listings</a>
+                            <a class="dropdown-item" href="">Settings</a>
                             <a class="dropdown-item" href="/login">Logout</a>
                         </div>
                     </li>
