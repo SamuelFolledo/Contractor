@@ -11,8 +11,10 @@ client = MongoClient(host = f'{host}?retryWrites=false')
 db = client.get_default_database()
 users = db.users
 projects = db.projects
+carts = db.carts
+listings = db.listings
 
-current_user = {"_id":"", "user_username":"", "user_first_name":"", "user_last_name":"", "user_password":"", "user_favorites": [], "user_listings":[]}
+current_user = {"_id":"", "user_username":"", "user_first_name":"", "user_last_name":"", "user_password":"", "user_cart_id": "", "user_listings_id":""}
 
 @app.route('/')
 def index():
@@ -27,7 +29,7 @@ def user_home(user_id): #USER HOME
     # print(f"USERS ARE {users.find()}")
     return render_template('projects_index.html', current_user = current_user, projects = projects.find())
 
-@app.route('/user', methods=['POST']) #USER SUBMIT
+@app.route('/user', methods=['POST']) #USER SUBMIT LOGIN/REGISTER
 def user_submit():
     # is_login = request.form.get('is_login')
     username = request.form.get('user_username').lower()
@@ -56,23 +58,27 @@ def user_submit():
 
         if username[0] == "@": #checks if username has @ in the beginning
             return render_template('user_register.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'Register')
-        if users.find({"user_username":insert_at_symbol(username)}).count() > 0: #check if username already exists
+        if users.find({"user_username":username}).count() > 0: #check if username already exists
             return render_template('user_register.html', username_error = True, error_message = "Username already exist", current_user = user, title = 'Register')
 
         if password != confirm_password: #check if passwords and confirm pass match
             return render_template('user_register.html', password_error = True, error_message = "Password and Confirm password does not match", current_user = user, title = 'Register')
         
-        # user["user_username"] = insert_at_symbol(username) #insert an @ and lowercase username 
-        user_id = users.insert_one(user).inserted_id #insert user and get the id
-        current_user['_id'] = user_id
-        current_user['user_username'] = username
-        current_user['user_first_name'] = first_name
-        current_user['user_last_name'] = last_name
-        current_user['user_favorites'] = []
-        current_user['user_listings'] = []
-        current_user['user_username'] = password
+        cart = {'project_id':[]}
+        cart_id = carts.insert_one(cart).inserted_id
+        listing = {'project_id':[]}
+        listing_id = listings.insert_one(listing).inserted_id
 
-        return redirect(url_for('user_home', user_id = current_user['_id'])) 
+        # current_user['user_username'] = username
+        # current_user['user_first_name'] = first_name
+        # current_user['user_last_name'] = last_name
+        # current_user['user_password'] = password
+        user['user_cart_id'] = cart_id
+        user['user_listings_id'] = listing_id
+        print(f"CURRENT USER REGISTERING IS {user}")
+        user_id = users.insert_one(user).inserted_id #insert user and get the id
+    
+        return redirect(url_for('user_home', user_id = user_id)) 
     
     else: #LOGIN
         user = {
@@ -98,19 +104,21 @@ def user_submit():
             current_user['user_username'] = doc['user_username']
             current_user['user_first_name'] = doc['user_first_name']
             current_user['user_last_name'] = doc['user_last_name']
-            current_user['user_favorites'] = doc['user_favorites']
-            current_user['user_listings'] = doc['user_listings']
             current_user['user_password'] = doc['user_password']
+            current_user['user_cart_id'] = doc['user_cart_id']
+            current_user['user_listings_id'] = doc['user_listings_id']
             
         return redirect(url_for('user_home', user_id = current_user['_id']))
     return render_template('user_login.html', username_error = True, error_message = "Incorrect username or password", current_user = current_user, title = 'Login')
 
 @app.route('/register') #USER REGISTER
 def user_register():
+    current_user = {"_id":"", "user_username":"", "user_first_name":"", "user_last_name":"", "user_password":"", "user_cart_id": "", "user_listings_id":""}
     return render_template('user_register.html', current_user = current_user, title = 'Register User')
 
 @app.route('/login') #USER LOGIN
 def user_login():
+    current_user = {"_id":"", "user_username":"", "user_first_name":"", "user_last_name":"", "user_password":"", "user_cart_id": "", "user_listings_id":""}
     return render_template('user_login.html', current_user = current_user, title = 'Login User')
 
 
