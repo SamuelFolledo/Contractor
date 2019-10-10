@@ -1,0 +1,31 @@
+<!-- templates/partials/comment_form.html -->
+
+<form>
+    <fieldset>
+        <legend>Add a Comment</legend>
+        <!-- Price -->
+        <div class='form-group'>
+            <label for='comment-title'>Bid Amount</label><br>
+            <input class='form-control'
+                id='comment-title'
+                type='number'
+                name='price'
+                placeholder='Bid Amount'/>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class='form-group'>
+            <label for='comment-content'>Bidder Description</label><br>
+            <textarea class='form-control'
+                id='comment-content'
+                name='content'
+                rows='5'
+                placeholder='Your Description...'></textarea>
+        </div>
+    </fieldset>
+
+    <!-- BUTTON -->
+    <div class='form-group'>
+        <button class='btn btn-primary' type='submit'>Offer Price</button>
+    </div>
+</form>

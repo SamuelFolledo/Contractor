@@ -22,7 +22,7 @@ def index():
     return render_template('projects_index.html', current_user = current_user, projects = projects.find())
 
 ########################################### USERS ###########################################
-@app.route('/user/<user_id>')
+@app.route('/home/<user_id>')
 def user_home(user_id): #USER HOME
     current_user = users.find_one({'_id': ObjectId(user_id)})
     print(f"CURRENT USER IN HOME IS {current_user}")
@@ -120,50 +120,49 @@ def user_edit(user_id):
 def user_update(user_id):
 
     ########################
-
     username = request.form.get('user_username').lower()
     password = request.form.get('user_password')
-    
-    if request.form.get('is_login') == False: #UPDATE USER
-        user_admin_password = request.form.get('user_admin_password','')
-        first_name = request.form.get('user_first_name')
-        last_name = request.form.get('user_last_name')
-        user = {
-            'user_username': username,
-            'user_first_name': first_name,
-            'user_last_name': last_name,
-            'user_password': password,
-            'is_admin': False
-        }
-        #Error handling
-        if username == "  " or username == " ":
-            return render_template('user_edit.html', username_error = True, error_message = "Please input a valid value", current_user = user, title = 'Update User')
-        if first_name == "  " or first_name == " ":
-            return render_template('user_edit.html', first_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'Update User')
-        if last_name == "  " or last_name == " ":
-            return render_template('user_edit.html', last_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'Update User')
-        if password == "  " or password == " ":
-            return render_template('user_edit.html', password_error = True, error_message = "Please input a valid value", current_user = user, title = 'Update User')
-        if username[0] == "@": #checks if username has @ in the beginning
-            return render_template('user_edit.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'Update User')
-        if users.find({"user_username":username}).count() > 0: #check if username already exists
-            return render_template('user_edit.html', username_error = True, error_message = "Username already exist", current_user = user, title = 'Update User')
+    first_name = request.form.get('user_first_name')
+    last_name = request.form.get('user_last_name')
+    user = {
+        'user_username': username,
+        'user_first_name': first_name,
+        'user_last_name': last_name,
+        'user_password': password,
+        'is_admin': False
+    }
+    #Error handling
+    user_admin_password = request.form.get('user_admin_password','') #for admin
+    if user_admin_password == "admin!":
+        user['is_admin'] = True
+    elif user_admin_password == "" or user_admin_password == " ":
+        user['is_admin'] = False
+    else: 
+        return render_template('user_edit.html', admin_error = True, error_message = "Please input a password or leave it blank", current_user = user, title = 'Update User')
 
-        cursor = users.find({"user_username":username})
-        if cursor.count() < 1: #check if username does not exist
-            return render_template('user_edit.html', username_error = True, error_message = "Username does not exist", current_user = user, title = 'Login')
+    if username == "  " or username == " ":
+        return render_template('user_edit.html', username_error = True, error_message = "Please input a valid value", current_user = user, title = 'Update User')
+    if first_name == "  " or first_name == " ":
+        return render_template('user_edit.html', first_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'Update User')
+    if last_name == "  " or last_name == " ":
+        return render_template('user_edit.html', last_name_error = True, error_message = "Please input a valid value", current_user = user, title = 'Update User')
+    if password == "  " or password == " ":
+        return render_template('user_edit.html', password_error = True, error_message = "Please input a valid value", current_user = user, title = 'Update User')
+    if username[0] == "@": #checks if username has @ in the beginning
+        return render_template('user_edit.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'Update User')
+    if users.find({"user_username":username}).count() > 0: #check if username already exists
+        return render_template('user_edit.html', username_error = True, error_message = "Username already exist", current_user = user, title = 'Update User')
+    print(f"USER WE ARE UPDATING IS {user}")
+    cursor = users.find({"user_username":username})
+    if cursor.count() < 1: #check if username does not exist
+        return render_template('user_edit.html', username_error = True, error_message = "Username does not exist", current_user = user, title = 'Login')
 
-        for doc in cursor:
-            current_user['_id'] = doc['_id']
-            current_user['user_username'] = doc['user_username']
-            current_user['user_first_name'] = doc['user_first_name']
-            current_user['user_last_name'] = doc['user_last_name']
-            current_user['user_password'] = doc['user_password']
-            current_user['is_admin'] = doc['is_admin']
-            current_user['user_cart_id'] = doc['user_cart_id']
-            current_user['user_listings_id'] = doc['user_listings_id']
-
-        return redirect(url_for('user_home', user_id = current_user['_id']))
+    for doc in cursor:
+        user['_id'] = doc['_id']
+        user['user_cart_id'] = doc['user_cart_id']
+        user['user_listings_id'] = doc['user_listings_id']
+    print(f"USER WE UPDATED IS {user}")
+    return redirect(url_for('user_home', user_id = user['_id']))
     
 
     ########################

@@ -31,7 +31,7 @@
             <input type='hidden' name='_method' value='DELETE'>
             <button class='btn btn-primary' type='submit'>Delete</button>
         </form></p>
-        <br><br><br>
+        <br><br>
         {% if project.project_linkedin is defined and project.project_linkedin|length %}
             <p><a href={{project.project_linkedin}}>LinkedIn</a></p>
         {% endif %}
@@ -41,7 +41,9 @@
         {% if project.project_github is defined and project.project_github|length %} <!--checks if project has those properties is defined and not empty-->
             <p><a href={{project.project_github}}>GitHub</a></p>
         {% endif %}
+        <br><br><br><br>
+        <!--Comment form-->
+        {% include 'partials/comment_form.html' %}
     </div>
     </div>
-
 {% endblock %}
