@@ -27,7 +27,7 @@ def user_home(user_id): #SHOW USER HOME
     return render_template('projects_index.html', current_user = current_user, projects = projects.find())
 
 
-@app.route('/user/register') #USER NEW
+@app.route('/register') #USER NEW
 def user_register():
     return render_template('user_register.html', current_user = current_user, title = 'New User')
 
@@ -66,11 +66,31 @@ def user_submit():
 
     
     user["user_username"] = insert_at_symbol(username) #insert an @ and lowercase username 
-    user_id = users.insert_one(user).inserted_id
+    user_id = users.insert_one(user).inserted_id #insert user and get the id
     return redirect(url_for('user_home', user_id = user_id))
 
-# def fetch_user(username):
-#     user = users.find({"user_username": username}).limit(1) #find limit 1 is faster than find_one
+
+@app.route('/login', methods=['POST']) #USER SUBMIT
+def user_login():
+    username = request.form.get('user_username').lower() #add @ before username to know that it is a username
+    password = request.form.get('user_password')
+    user = {
+        'user_username': username,
+        'user_password': password
+    }
+    #Error handling
+    if username == "" or username == " ":
+        return render_template('user_login.html', username_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
+    if password == "" or password == " ":
+        return render_template('user_login.html', password_error = True, error_message = "Please input a valid value", current_user = user, title = 'New User')
+    if username[0] == "@": #checks if username has @ in the beginning
+        return render_template('user_login.html', username_error = True, error_message = "Invalid username: cannot start with '@'", current_user = user, title = 'New User')
+    
+    if users.find({"user_username":insert_at_symbol(username)}).count() < 1: #check if username does not exist
+        return render_template('user_login.html', username_error = True, error_message = "Username does not exist", current_user = user, title = 'New User')
+    
+    user_id = users.find({"user_username":insert_at_symbol(username)})
+    return redirect(url_for('user_home', user_id = user_id))
 
 def insert_at_symbol(username): #user's helper method that inserts @ symbol to a username
     return username[:0]+"@"+username[0:]
@@ -89,6 +109,7 @@ def projects_submit():
         'project_name': request.form.get('project_name'),
         'project_description': request.form.get('project_description'),
         'project_rating': int(request.form.get('project_rating')),
+        'project_image_file': request.form.get('project_image_file'),
         'project_image': request.form.get('project_image'),
         'project_linkedin': request.form.get('project_linkedin'),
         'project_facebook': request.form.get('project_facebook'),
@@ -115,6 +136,7 @@ def projects_update(project_id):
         # 'videos': request.form.get('videos').split()
         'project_rating': int(request.form.get('project_rating')),
         'project_image': request.form.get('project_image'),
+        'project_image_file': request.form.get('project_image_file'),
         'project_linkedin': request.form.get('project_linkedin'),
         'project_facebook': request.form.get('project_facebook'),
         'project_github': request.form.get('project_github')

@@ -10,7 +10,7 @@
                 <legend>Register</legend> <!--The legend element represents a caption for the rest of the contents of the legend element's parent fieldset element, if any-->
                 <div class='form-group'> 
                     <label for='user-username'>Username:</label><br>
-                    <input class='form-control' id='user-username' type='text' name='user_username' value='{{current_user.user_username}}'/>
+                    <input class='form-control' id='user-username' type='text' name='user_username' value='{{current_user.user_username}}' required/>
                     {% if username_error is defined and username_error == True %}
                         <small class="form-text text-muted">
                             {{error_message}}
@@ -20,7 +20,7 @@
                 
                 <div class='form-group'> 
                     <label for='user-first_name'>First Name:</label><br>
-                    <input class='form-control' id='user-first_name' type='text' name='user_first_name' value='{{current_user.user_first_name}}' />
+                    <input class='form-control' id='user-first_name' type='text' name='user_first_name' value='{{current_user.user_first_name}}' required/>
                     {% if first_name_error is defined and first_name_error == True %}
                         <small class="form-text text-muted">
                             {{error_message}}
@@ -30,7 +30,7 @@
             
                 <div class='form-group'> 
                     <label for='user-last_name'>Last Name:</label><br>
-                    <input class='form-control' id='user-last_name' type='text' name='user_last_name' value='{{current_user.user_last_name}}' />
+                    <input class='form-control' id='user-last_name' type='text' name='user_last_name' value='{{current_user.user_last_name}}' required/>
                     {% if last_name_error is defined and last_name_error == True %}
                         <small class="form-text text-muted">
                             {{error_message}}
@@ -40,7 +40,7 @@
             
                 <div class='form-group'> 
                     <label for='user-password'>Password:</label><br>
-                    <input class='form-control' id='user-password' type='password' name='user_password' value=''/>
+                    <input class='form-control' id='user-password' type='password' name='user_password' value='' required/>
                     {% if password_error is defined and password_error == True %}
                         <small class="form-text text-muted">
                             {{error_message}}
@@ -50,7 +50,7 @@
             
                 <div class='form-group'> 
                     <label for='user-confirm_password'>Confirm Password:</label><br>
-                    <input class='form-control' id='user-confirm_password' type='password' name='user_confirm_password' value=''/>
+                    <input class='form-control' id='user-confirm_password' type='password' name='user_confirm_password' value='' required/>
                     {% if password_error is defined and password_error == True %}
                         <small class="form-text text-muted">
                             {{error_message}}
@@ -62,7 +62,7 @@
 
             <!-- BUTTON -->
             <div class='form-group'>
-                <button class='btn btn-primary' type='submit'>Save User</button>
+                <button class='btn btn-primary' type='submit'>Register</button>
             </div>
         </form>
     </div>
