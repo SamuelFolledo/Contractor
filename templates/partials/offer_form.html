@@ -1,5 +1,4 @@
 <!-- templates/partials/offer_form.html -->
-
 <form action='/projects/offers' method='POST'>
     <input type='hidden' value='{{ project._id }}' name='project_id'/>
 
@@ -7,19 +6,19 @@
         <legend>Bid Offering</legend>
         <!-- Price -->
         <div class='form-group'>
-            <label for='offer-title'>Amount to Offer</label><br>
+            <label for='offer-price'>Amount to Offer</label><br>
             <input class='form-control'
-                id='offer-title'
-                type='text'
+                id='offer-price'
+                type='number'
                 name='price'
                 placeholder='Price $$$'/>
         </div>
 
         <!-- DESCRIPTION -->
         <div class='form-group'>
-            <label for='offer-content'>Bidder Description</label><br>
+            <label for='offer-description'>Bidder Description</label><br>
             <textarea class='form-control'
-                id='offer-content'
+                id='offer-description'
                 name='description'
                 rows='5'
                 placeholder='Your Description...'></textarea>

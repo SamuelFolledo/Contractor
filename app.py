@@ -207,7 +207,7 @@ def projects_submit():
 @app.route('/projects/<project_id>') #SHOW
 def projects_show(project_id):
     project = projects.find_one({'_id': ObjectId(project_id)})
-    project_offers = offers.find({'projects_id':ObjectId(project_id)})
+    project_offers = offers.find({'project_id':ObjectId(project_id)})
     return render_template('projects_show.html', current_user = current_user, project = project, offers=project_offers)
 
 @app.route('/projects/<project_id>/edit') #EDIT
@@ -253,12 +253,12 @@ def offers_new():
     offer_id = offers.insert_one(offer).inserted_id
     return redirect(url_for('projects_show', project_id=request.form.get('project_id')))
 
-@app.route('/playlists/offers/<offer_id>', methods=['POST'])
+@app.route('/projects/offers/<offer_id>', methods=['POST'])
 def offers_delete(offer_id):
     """Action to delete a offer."""
     offer = offers.find_one({'_id': ObjectId(offer_id)})
     offers.delete_one({'_id': ObjectId(offer_id)})
-    return redirect(url_for('playlists_show', playlist_id=offer.get('playlist_id')))
+    return redirect(url_for('projects_show', project_id=offer.get('project_id')))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

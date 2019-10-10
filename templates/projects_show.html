@@ -41,14 +41,19 @@
         {% if project.project_github is defined and project.project_github|length %} <!--checks if project has those properties is defined and not empty-->
             <p><a href={{project.project_github}}>GitHub</a></p>
         {% endif %}
-        <br><br><br><br>
+        <br><br>
 
-        <!--offer form-->
+
+        <!--offer form-->        
         {% include 'partials/offer_form.html' %}
+        
         <hr>
+        <br><br>
         <!-- Show offers -->
+        <h2>Previous Offers</h2>
         {% for offer in offers %}
             {% include 'partials/offer.html' %}
+            <br>
         {% endfor %}
     </div>
     </div>
