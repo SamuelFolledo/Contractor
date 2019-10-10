@@ -27,7 +27,7 @@ def user_home(user_id): #SHOW USER HOME
     return render_template('projects_index.html', current_user = current_user, projects = projects.find())
 
 
-@app.route('/user/new') #USER NEW
+@app.route('/user/register') #USER NEW
 def user_register():
     return render_template('user_register.html', current_user = current_user, title = 'New User')
 
@@ -66,10 +66,7 @@ def user_submit():
 
     
     user["user_username"] = insert_at_symbol(username) #insert an @ and lowercase username 
-    # username = insert_at_symbol(username) #insert @ to username
     user_id = users.insert_one(user).inserted_id
-    # current_user= user
-    # print(f"Current user is {current_user}")
     return redirect(url_for('user_home', user_id = user_id))
 
 # def fetch_user(username):

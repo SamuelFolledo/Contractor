@@ -7,16 +7,31 @@
     <div class='row'>
         {% for project in projects %}
             <div class='col-md-3'>
-                <h2>
-                    <a href='/projects/{{ project._id }}'>{{ project.project_name }}</a>
-                </h2>
-                {% if project.project_image is defined and project.project_image|length %}
-                    <a href=/projects/{{ project._id }}>
-                        <img class="rounded-circle img-fluid" src={{project.project_image}} style="width:250px; height:300px">
-                    </a>
-                {% endif %}
-                <button class="btn">Add To Favorites</button>
-                <small>{{ project.project_description }}</small>
+                {% if current_user["_id"] is defined and current_user["_id"] != "" %}
+                    <h2>
+                        <a href='/user/{{ current_user._id }}/projects/{{ project._id }}'>{{ project.project_name }}</a>
+                    </h2>
+                    {% if project.project_image is defined and project.project_image|length %}
+                        <a href=/projects/{{ project._id }}>
+                            <img class="rounded-circle img-fluid" src={{project.project_image}} style="width:250px; height:300px">
+                        </a>
+                    {% endif %}
+                    <button class="btn">Add To Favorites</button>
+                    <small>{{ project.project_description }}</small>
+
+                {%else%}
+                    <h2>
+                        <a href='/projects/{{ project._id }}'>{{ project.project_name }}</a>
+                    </h2>
+                    {% if project.project_image is defined and project.project_image|length %}
+                        <a href=/projects/{{ project._id }}>
+                            <img class="rounded-circle img-fluid" src={{project.project_image}} style="width:250px; height:300px">
+                        </a>
+                    {% endif %}
+                    <button class="btn">Add To Favorites</button>
+                    <small>{{ project.project_description }}</small>
+                {%endif%}
+
             </div>
         {% endfor %}
     </div>
