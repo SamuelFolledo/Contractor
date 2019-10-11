@@ -6,6 +6,25 @@ Contractor is an e-commerce website where users can sell their projects (iOS, An
 ## Link to [Contractor](https://folledo-contractor.herokuapp.com) while live
 https://folledo-contractor.herokuapp.com
 
+## Screenshots
+### Welcome Screen
+<img src="/static/photos/welcome_page.PNG" width="621" height="350">
+---
+
+### User Login in Mobile
+<img src="https://github.com/SamuelFolledo/Contractor/blob/master/static/photos/mob_login_user.PNG" width="536" height="726">
+
+### User Register in Mobile
+<img src="https://github.com/SamuelFolledo/Contractor/blob/master/static/photos/mob_register_user.PNG" width="536" height="726">
+---
+
+
+### Welcome Screen
+<img src="/static/photos/welcome_page.PNG" width="621" height="350">
+---
+
+
+
 ## To Run Locally
 - __With Python installed, create a virtual environment__
 ```
