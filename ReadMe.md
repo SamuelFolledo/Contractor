@@ -12,10 +12,10 @@ https://folledo-contractor.herokuapp.com
 ---
 
 ### User Login in Mobile
-<img src="https://github.com/SamuelFolledo/Contractor/blob/master/static/photos/mob_login_user.PNG" width="536" height="726">
+<img src="https://github.com/SamuelFolledo/Contractor/blob/master/static/photos/mob_login_user.png" width="536" height="726">
 
 ### User Register in Mobile
-<img src="https://github.com/SamuelFolledo/Contractor/blob/master/static/photos/mob_register_user.PNG" width="536" height="726">
+<img src="https://github.com/SamuelFolledo/Contractor/blob/master/static/photos/mob_register_user.png" width="536" height="726">
 ---
 
 
