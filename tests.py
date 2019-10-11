@@ -5,21 +5,28 @@ from bson.objectid import ObjectId
 from app import app
 
 sample_user_id = ObjectId('5d55cffc4a3d4031f42827a3')
+sample_cart_id = ObjectId('5d55cffc4a3d4031f42827a4')
+sample_listing_id = ObjectId('5d55cffc4a3d4031f42827a5')
+
 sample_user = {
-    'user_name': 'Kobe Bryant',
-    'user_description': 'Best player in the NBA',
-    'user_rating': 5
-    # 'videos': [
-    #     'https://youtube.com/embed/hY7m5jjJ9mM',
-    #     'https://www.youtube.com/embed/CQ85sUNBK7w'
-    # ]
+    'user_username': 'Mamba',
+    'user_first_name': 'Kobe',
+    'user_last_name': 'Bryant',
+    'user_password': 'qwerty123',
+    'user_cart_id': sample_cart_id,
+    'user_listings_id': sample_listing_id,
+    'is_admin': False    
 }
-sample_form_data = {
-    'user_name': sample_user['user_name'],
-    'user_description': sample_user['user_description'],
-    'user_rating': int(sample_user['user_rating'])
-    # 'videos': '\n'.join(sample_user['videos'])
+sample_user_data = {
+    'user_username': sample_user['user_username'],
+    'user_first_name': sample_user['user_first_name'],
+    'user_last_name': sample_user['user_last_name'],
+    'user_password': sample_user['user_password'],
+    'user_cart_id': sample_user['user_cart_id'],
+    'user_listings_id': sample_user['user_listings_id'],
+    'is_admin': sample_user['is_admin']
 }
+
 
 class UsersTests(TestCase):
 
@@ -57,14 +64,14 @@ class UsersTests(TestCase):
     @mock.patch('pymongo.collection.Collection.insert_one')
     def test_submit_user(self, mock_insert):
         """Test submitting a new user."""
-        result = self.client.post('/users', data=sample_form_data)
+        result = self.client.post('/users', data=sample_user_data)
         # After submitting, should redirect to that user's page
         self.assertEqual(result.status, '302 FOUND')
         mock_insert.assert_called_with(sample_user)
 
     @mock.patch('pymongo.collection.Collection.update_one')
     def test_update_user(self, mock_update):
-        result = self.client.post(f'/users/{sample_user_id}', data=sample_form_data)
+        result = self.client.post(f'/users/{sample_user_id}', data=sample_user_data)
         self.assertEqual(result.status, '302 FOUND')
         mock_update.assert_called_with({'_id': sample_user_id}, {'$set': sample_user})
 
