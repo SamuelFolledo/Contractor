@@ -8,10 +8,11 @@ https://folledo-contractor.herokuapp.com
 
 ## Screenshots
 ### Website
-<img src="https://github.com/SamuelFolledo/Contractor/blob/master/static/photos/web_page.png" width="536" height="726">
+<!-- <img src="https://github.com/SamuelFolledo/Contractor/blob/master/static/photos/web_page.png" width="536" height="726"> -->
+![Website Sample Views in Desktop Screen Size](/static/photos/web_page.png)
 
 ### Mobile
-![Mobile Views of the Website](/static/photos/contractor_mob.png)
+![Website Sample Views in Mobile Screen Size](/static/photos/contractor_mob.png)
 ---
 
 
